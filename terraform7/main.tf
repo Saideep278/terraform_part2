@@ -1,13 +1,13 @@
 resource "aws_instance" "example" {
-  ami = "ami-0e86e20dae9224db8"
-  instance_type = "t2.micro"
-  vpc_security_group_ids = ["value"]
+  ami                    = "ami-0e86e20dae9224db8"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.example_sg.id]
+
   user_data = <<EOF
-  #!/bin/bash
-  sudo apt-get install apache2 -y
-  echo "Helloworld" > /var/www/html/index.html
-  nohup busybox httpd -f -p 8080 &
-  EOF
+#!/bin/bash
+echo "Helloworld" > /var/www/index.html
+nohup busybox httpd -f -p 8080 &
+EOF
 }
 
 resource "aws_security_group" "example_sg" {
@@ -19,8 +19,7 @@ resource "aws_security_group" "example_sg" {
   }
 }
 
-output "example_publicip" {
+output "public_ip" {
   value = aws_instance.example.public_ip
 }
 
-#

@@ -6,9 +6,6 @@ terraform {
       #version = "~> 5.0"
       # Uncomment the version line for production-level use
     }
-    random = {
-      source = "hashicorp/random"
-    }
     # null = {
     #   source = "hashicorp/null"
     # }
